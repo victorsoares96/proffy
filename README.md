@@ -36,6 +36,9 @@
 * [How to Run?](#how-to-run)
 * [Screenshots](#screenshots)
 
+# Back-end
+[View the backend server here](https://github.com/victorsoares96/proffy-server)
+
 # Screenshots
 
 ### Web Screenshot
@@ -65,6 +68,13 @@ This project was made using the follow technologies:
 * [Expo](https://expo.io/)       
 * [Express](https://expressjs.com/)
 * [Axios](https://github.com/axios/axios)
+* [Postgres]()
+
+# Deploy with
+This project was deployed using the follow...
+
+* [Netlify](https://netlify.com)
+* [Heroku](https://heroku.com)
 
 # Features
 
@@ -72,15 +82,11 @@ This project was made using the follow technologies:
 * App to connect teachers and students.
 
 # How to run?
+
+### Run API
 ```bash
 # Clone Repository
-$ git clone https://github.com/victorsoares96/proffy.git
-```
-### Run API
-
-```bash
-# Go to server folder
-$ cd proffy/server
+$ git clone https://github.com/victorsoares96/proffy-server.git
 
 # Install Dependencies
 $ yarn install
@@ -88,9 +94,15 @@ $ yarn install
 # Run Aplication
 $ yarn start
 ```
+
 Access API at http://localhost:3333/
 
 ### Run Web Project
+
+```bash
+# Clone Repository
+$ git clone https://github.com/victorsoares96/proffy.git
+```
 
 ```bash
 # Go to web folder
@@ -106,7 +118,12 @@ Go to http://localhost:3000/ to see the result.
 
 ### Run Mobile Project
 
-To run the mobile project you need a cellphone with the app of [expo](https://play.google.com/store/apps/details?id=host.exp.exponent) instaled or a emulator android/ios.
+```bash
+# Clone Repository
+$ git clone https://github.com/victorsoares96/proffy.git
+```
+
+To run the mobile project you need a cellphone with the app of [expo](https://play.google.com/store/apps/details?id=host.exp.exponent) installed or a emulator android/ios.
 <br />
 After, fork this repository and clone to your machine. Inside of the project's folder run the following commands:
 
@@ -120,7 +137,7 @@ $ yarn install
 # Run Aplication
 $ yarn start
 ```
-Aferter read the QRCode with the app of [expo](https://play.google.com/store/apps/details?id=host.exp.exponent) or run on emulator.
+After read the QRCode with the app of [expo](https://play.google.com/store/apps/details?id=host.exp.exponent) or run on emulator.
 
 This project is under the [MIT license](./LICENSE).
 
