@@ -18,11 +18,15 @@
 }
 
 #page-teacher-form main fieldset {
+  display: flex;
+  flex-direction: column;
   border: 0;
   padding: 0 2.4rem;
 }
 
 #page-teacher-form main fieldset + fieldset {
+  display: flex;
+  flex-direction: column;
   margin-top: 6.4rem;
 }
 
@@ -111,6 +115,7 @@
   }
 
   #page-teacher-form main fieldset {
+    width: 100%;
     padding: 0 6.4rem;
   }
 
@@ -127,7 +132,6 @@
   #page-teacher-form main fieldset {
     padding: 0 6.4rem;
     display: flex;
-    align-items: center;
     justify-content: space-between;
   }
 
