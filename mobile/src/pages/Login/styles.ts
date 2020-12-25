@@ -2,21 +2,22 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
+    //height: '100%',
     backgroundColor: '#E5E5E5',
-    //justifyContent: 'flex-start',
   },
   loginImgContainer: {
-    paddingVertical: 50,
+    paddingVertical: 40,
     backgroundColor: '#8257e5',
     justifyContent: 'center',
     alignItems: 'center',
     height: '45%'
   },
-  loginFormContainer: { 
-    flex: 1, 
-    justifyContent: 'center',
-    margin: 30,
+  loginFormContainer: {
+    //flex: 1,
+    justifyContent: 'flex-end',
+    margin: 20,
+    //marginHorizontal: 30,
   },
   loginTitleContainer: {
     flexDirection: 'row',
@@ -51,6 +52,66 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: '#fafafc',
     paddingHorizontal: 24
+  },
+  passwordContainer: { 
+    flexDirection: 'row', 
+    alignItems: 'center' 
+  },
+  passwordShowToggleButton: { 
+    right: 50, 
+    position: 'relative' 
+  },
+  loginSubContainer: {
+    marginTop: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  rememberMeText: {
+    color: '#9c98a6',
+    fontFamily: 'Poppins_400Regular',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 12,
+    lineHeight: 24,
+  },
+  forgotPasswordText: {
+    color: '#9c98a6',
+    fontFamily: 'Poppins_400Regular',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 12,
+    lineHeight: 24,
+
+    textAlign: 'right'
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  checkbox: {
+    marginRight: 10
+  },
+  button: {
+    height: 50,
+    width: '100%',
+    backgroundColor: '#333',
+    borderRadius: 8,
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  buttonPrimary: {
+    backgroundColor: '#04d361'
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontFamily: 'Archivo_700Bold',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 26,
+
+    textAlign: 'center'
   }
 });
 
