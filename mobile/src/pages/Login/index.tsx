@@ -19,9 +19,8 @@ function Login() {
   const [checked, setChecked] = React.useState(false);
   const [visible, changeVisible] = React.useState(false);
 
-  const [loading, setLoading] = React.useState(false);
   const { navigate } = useNavigation();
-  const { signIn } = useAuth();
+  const { signIn, loading } = useAuth();
 
   const handleLogin = () => {
     signIn();

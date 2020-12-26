@@ -11,11 +11,8 @@ import backIcon from '../assets/images/icons/back.png';
 import logoImg from '../assets/images/logo.png';
 
 import logout from '../assets/images/icons/logout.png';
-import { NavigationProp, ParamListBase } from '@react-navigation/native';
-
-type Common<A, B> = {
-  [P in keyof A & keyof B]: A[P] | B[P];
-}
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { useAuth } from '../contexts/authContext';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -33,19 +30,25 @@ const LandingOptions: StackNavigationOptions = {
   },
   headerTransparent: true,
   headerTitle: '',
-  headerRight: () => (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <TouchableOpacity activeOpacity={0.1} style={{ backgroundColor: '#774dd6', width: 40, height: 40, borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}>
-        <Image source={logout} />
-      </TouchableOpacity>
-    </View>
-  ),
+  headerRight: () => {
+    const { signOut } = useAuth();
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity 
+        onPress={() => signOut()}
+        activeOpacity={0.1} 
+        style={{ backgroundColor: '#774dd6', width: 40, height: 40, borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}>
+          <Image source={logout} />
+        </TouchableOpacity>
+      </View>
+    )
+  },
   headerRightContainerStyle: {
     marginRight: 30
   }
 }
 
-const StudyOptions: Common<StackNavigationOptions, NavigationProp<ParamListBase>> = ({ navigation }: { navigation: NavigationProp<ParamListBase> }) => ({
+const StudyOptions: StackNavigationOptions = {
   headerShown: true,
   headerTransparent: false,
   
@@ -67,13 +70,16 @@ const StudyOptions: Common<StackNavigationOptions, NavigationProp<ParamListBase>
       height: 0,
     },
   },
-  headerLeft: () => (
-    <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 30 }}>
-      <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={navigation.goBack}>
-        <Image source={backIcon} />
-      </TouchableOpacity>
-    </View>
-  ),
+  headerLeft: () => {
+    const { goBack } = useNavigation();
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 30 }}>
+        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={goBack}>
+          <Image source={backIcon} />
+        </TouchableOpacity>
+      </View>
+    )
+  },
   headerRight: () => (
     <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 30 }}>
       <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -81,7 +87,7 @@ const StudyOptions: Common<StackNavigationOptions, NavigationProp<ParamListBase>
       </TouchableOpacity>
     </View>
   )
-})
+}
 
 function AppStack() {
   return (

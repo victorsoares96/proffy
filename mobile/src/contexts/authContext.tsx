@@ -41,14 +41,16 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   async function signIn() {
+    setLoading(true);
     const response = await auth.signIn();
-
     setUser(response.user);
 
     api.defaults.headers.Authorization = `Bearer ${response.token}`;
 
     await AsyncStorage.setItem('@ProffyAuth:user', JSON.stringify(response.user));
     await AsyncStorage.setItem('@ProffyAuth:token', response.token);
+
+    setLoading(false);
   }
 
   async function signOut() {
