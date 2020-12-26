@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   introContainer: {
     flexDirection: 'column',
-    marginLeft: 30,
+    marginHorizontal: 30,
   },
   introSection: {
     color: '#6a6180',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Checkbox } from 'react-native-paper';
 import { Image, View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
@@ -10,12 +10,24 @@ import styles from './styles';
 
 import loginImage from '../../assets/images/login-background.png';
 import { BorderlessButton, RectButton, ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import Button from '../../utils/components/Button';
+import delay from '../../utils/delay';
+import { useAuth } from '../../contexts/authContext';
 
 function Login() {
   const [checked, setChecked] = React.useState(false);
   const [visible, changeVisible] = React.useState(false);
+
+  const [loading, setLoading] = React.useState(false);
+  const { navigate } = useNavigation();
+  const { signIn } = useAuth();
+
+  const handleLogin = () => {
+    signIn();
+  }
   return (
-    <ScrollView style={{ backgroundColor: '#e5e5e5' }}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.loginImgContainer}>
         <Image source={loginImage} />
       </View>
@@ -26,7 +38,7 @@ function Login() {
             Fazer login
           </Text>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('Register')}>
             <Text style={styles.loginTitleCaption}>
               Criar uma conta
             </Text>
@@ -59,7 +71,6 @@ function Login() {
 
           <View style={styles.loginSubContainer}>
             <View style={styles.checkboxContainer}>
-              {/*<Checkbox.Android style={styles.checkbox} color='#04d361' uncheckedColor='#ffffff' status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)} />*/}
               <TouchableOpacity style={styles.checkbox} onPress={() => setChecked(!checked)}>
                 <Image source={checked ? checkbox_checked : checkbox_unchecked} />
               </TouchableOpacity>
@@ -68,16 +79,16 @@ function Login() {
               </Text>
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate('ForgotPassword')}>
               <Text style={styles.forgotPasswordText}>
                 Esqueci minha senha
               </Text>
             </TouchableOpacity>
           </View>
           
-          <RectButton rippleColor='#ffff' style={[styles.button, styles.buttonPrimary]}>
+          <Button color='secondary' loading={loading} rippleColor='#ffffff' marginTop={20} activityIndicatorColor='#ffffff' onPress={handleLogin}>
             <Text style={styles.buttonText}>Entrar</Text>
-          </RectButton>
+          </Button>
         </View>
       </View>
     </ScrollView>

@@ -2,21 +2,28 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#8257E5',
-    justifyContent: 'center',
-    padding: 40
+    flexGrow: 1,
+    backgroundColor: '#f0f0f7',
+    justifyContent: 'space-evenly',
   },
   landingImg: {
+    paddingTop: 80,
+    paddingBottom: 30,
+    flex: 1,
+    backgroundColor: '#8257e5',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  landingActions: {
+    flex: 1,
+    marginHorizontal: 20
   },
   banner: {
     width: '100%',
     resizeMode: 'contain'
   },
   title: {
-    color: '#fff',
+    color: '#6a6180',
     fontFamily: 'Poppins_400Regular',
     fontSize: 20,
     lineHeight: 30,
@@ -51,10 +58,10 @@ const styles = StyleSheet.create({
   },
   totalConnections: {
     fontFamily: 'Poppins_400Regular',
-    color: '#d4c2ff',
+    color: '#9c98a6',
     fontSize: 12,
     lineHeight: 20,
-    maxWidth: 140,
+    //maxWidth: 140,
     marginTop: 40
   }
 });

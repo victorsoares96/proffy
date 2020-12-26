@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import TeacherList from '../pages/TeacherList';
 import Favorites from '../pages/Favorites';
+import Landing from '../pages/Landing';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

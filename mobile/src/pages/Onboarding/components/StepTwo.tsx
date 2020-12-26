@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   introContainer: {
     flexDirection: 'column',
-    marginLeft: 30,
+    marginHorizontal: 30,
     //marginTop: 40
   },
   introSection: {
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 24,
     lineHeight: 34,
-    marginTop: 20
+    marginTop: 20,
+
   },
   stepOneContainer: {
     marginHorizontal: 30,

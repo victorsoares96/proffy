@@ -2,22 +2,24 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
+    flexGrow: 1,
+    justifyContent: 'space-between',
     //height: '100%',
     backgroundColor: '#E5E5E5',
   },
   loginImgContainer: {
-    paddingVertical: 40,
+    paddingVertical: 20,
     backgroundColor: '#8257e5',
     justifyContent: 'center',
     alignItems: 'center',
     height: '45%'
   },
   loginFormContainer: {
-    //flex: 1,
-    justifyContent: 'flex-end',
+    flex: 1,
+    justifyContent: 'center',
     margin: 20,
-    //marginHorizontal: 30,
+    //backgroundColor: 'red'
+    //paddingVertical: 50,
   },
   loginTitleContainer: {
     flexDirection: 'row',
