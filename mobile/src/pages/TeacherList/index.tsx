@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, StyleSheet } from 'react-native';
-import { ScrollView, BorderlessButton, RectButton, TouchableOpacity } from 'react-native-gesture-handler';
-import {Picker} from '@react-native-picker/picker';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { ScrollView, RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
+import RNPickerSelect, { PickerStyle } from 'react-native-picker-select';
 
-import proffysFilter from '../../assets/images/proffys-filter.png';
 import filterExpandIcon from '../../assets/images/icons/filter-expand-icon.png';
 import emoteHappyIcon from '../../assets/images/icons/emote-smile.png';
 import styles from './styles';
@@ -14,6 +13,7 @@ import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
 
 import api from '../../services/api';
+import TimePickerSelect from '../../utils/components/TimePickerSelect';
 
 function TeacherList() {
   const [teachers, setTeachers] = useState([]);
@@ -92,7 +92,12 @@ function TeacherList() {
       </Text>
     </View>
   )
-  const [state, setState] = useState('java');
+
+  const handleHourMinute = (date: Date) => {
+    const hourMinute = `${date?.getHours()}:${date?.getMinutes()}`
+    console.log(hourMinute);
+    setTime(hourMinute);
+  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <PageHeader title='Proffys disponíveis' headerRight={emoteHappy}>
@@ -101,43 +106,45 @@ function TeacherList() {
           isFiltersVisible && (
             <View style={styles.searchForm}>
               <Text style={styles.label}>Matéria</Text>
-              <Picker
-                selectedValue={state}
-                mode='dialog'
-                style={{width: '100%', backgroundColor: '#fff'}}
-                onValueChange={(itemValue: any, itemIndex) =>
-                  setState(itemValue)
-                }>
-                <Picker.Item label="Java" value="java" />
-                <Picker.Item label="JavaScript" value="js" />
-              </Picker>
-              {/*<TextInput 
-                style={styles.input} 
-                value={subject}
-                onChangeText={text => setSubject(text)}
-                placeholder='Qual a matéria?' 
-                placeholderTextColor='#c1bccc'
-              />*/}
+              <RNPickerSelect
+                useNativeAndroidPickerStyle={false}
+                placeholder={{ label: 'Selecione', value: 'Selecione' }}
+                style={pickerSelectStyles}
+                onValueChange={(value) => setSubject(value)}
+                items={[
+                  { label: 'Matemática', value: 'Matemática', inputLabel: 'Matemática' },
+                  { label: 'Física', value: 'fisica', inputLabel: 'Física' },
+                  { label: 'Quimíca', value: 'quimica', inputLabel: 'Quimíca' },
+                ]}
+                Icon={() => <Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}
+              />
               <View style={styles.inputGroup}>
                 <View style={styles.inputBlock}>
                   <Text style={styles.label}>Dia da semana</Text>
-                  <TextInput 
-                    style={styles.input}
-                    value={week_day}
-                    onChangeText={text => setWeekDay(text)}
-                    placeholder='Qual o dia?' 
-                    placeholderTextColor='#c1bccc'
+                  <RNPickerSelect
+                    useNativeAndroidPickerStyle={false}
+                    placeholder={{ label: 'Selecione', value: 'Selecione' }}
+                    style={pickerSelectStyles}
+                    onValueChange={(value) => setWeekDay(value)}
+                    items={[
+                      { label: 'Segunda', value: 1, inputLabel: 'Segunda' },
+                      { label: 'Terça', value: 2, inputLabel: 'Terça' },
+                      { label: 'Quarta', value: 3, inputLabel: 'Quarta' },
+                      { label: 'Quinta', value: 4, inputLabel: 'Quinta' },
+                      { label: 'Sexta', value: 5, inputLabel: 'Sexta' },
+                      { label: 'Sábado', value: 6, inputLabel: 'Sábado' },
+                      { label: 'Domingo', value: 7, inputLabel: 'Domingo' },
+                    ]}
+                    Icon={() => <Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}
                   />
                 </View>
                 <View style={styles.inputBlock}>
                   <Text style={styles.label}>Horário</Text>
-                  <TextInput 
-                    style={styles.input} 
-                    value={time}
-                    onChangeText={text => setTime(text)}
-                    placeholder='Qual o horário?' 
-                    placeholderTextColor='#c1bccc'
-                  />
+                  <TimePickerSelect
+                    placeholderText='Selecione' 
+                    placeholderTextColor='#c1bccc' 
+                    onChangeDate={handleHourMinute}
+                    IconRight={<Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}/>
                 </View>
               </View>
               <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
@@ -162,5 +169,40 @@ function TeacherList() {
     </ScrollView>
   );
 }
+
+const pickerSelectStyles: PickerStyle = StyleSheet.create({
+  inputIOS: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+
+    borderRadius: 8,
+    color: '#c1bccc',
+    backgroundColor: '#fff',
+    height: 54,
+    paddingHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 16,
+  },
+  inputAndroid: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+
+    borderRadius: 8,
+    color: '#c1bccc',
+    backgroundColor: '#fff',
+    height: 54,
+    paddingHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 16,
+  },
+  iconContainer: {
+    marginTop: 18,
+    marginRight: 18
+  }
+});
 
 export default TeacherList;

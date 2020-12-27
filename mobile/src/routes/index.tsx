@@ -12,15 +12,15 @@ const IndexRoutes: any = {
 }
 
 function Routes() {
-  const { signed, loading } = useAuth();
+  const { signed, loading, user } = useAuth();
 
-  /*if(loading) {
+  if(loading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#8257e5' }}>
         <ActivityIndicator size='large' color='#fff' />
       </View>
     )
-  }*/
+  }
   return (
     <NavigationContainer>
       {IndexRoutes[signed.toString()]}
