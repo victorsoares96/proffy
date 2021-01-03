@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { ScrollView, RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
@@ -14,6 +14,7 @@ import TeacherItem, { Teacher } from '../../components/TeacherItem';
 
 import api from '../../services/api';
 import TimePickerSelect from '../../utils/components/TimePickerSelect';
+import { useFocusEffect } from '@react-navigation/native';
 
 function TeacherList() {
   const [teachers, setTeachers] = useState([]);
@@ -23,9 +24,11 @@ function TeacherList() {
   const [time, setTime] = useState('');
 
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
+  
   function handleToggleFiltersVisible() {
     setIsFiltersVisible(!isFiltersVisible);
   }
+  
   function loadFavorites() {
     AsyncStorage.getItem('favorites').then(response => {
       if(response) {
@@ -37,6 +40,7 @@ function TeacherList() {
       }
     });
   }
+  
   async function handleFiltersSubmit() {
     loadFavorites();
     const response = await api.get('classes', {
@@ -46,10 +50,18 @@ function TeacherList() {
         time
       }
     });
-    console.log(response);
+    console.log(response.data.Teachers);
     setIsFiltersVisible(false);
-    setTeachers(response.data);
+    setTeachers(response.data.Teachers);
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('oi')
+      loadFavorites();
+      return () => setFavorites([]);
+    }, [])
+  );
 
   const filterButton = (
     <View style={{ borderBottomColor: '#9871f5', borderBottomWidth: 1, opacity: 0.5 }}>
@@ -74,6 +86,7 @@ function TeacherList() {
       </TouchableOpacity>
     </View>
   )
+
   const emoteHappy = (
     <View style={{ alignItems: 'center', flexDirection: 'row' }}>
       <Image source={emoteHappyIcon} />
@@ -88,19 +101,19 @@ function TeacherList() {
         marginLeft: 10,
         textAlign: 'right'
         }}>
-          32 proffys
+          {teachers.length} proffys
       </Text>
     </View>
   )
 
   const handleHourMinute = (date: Date) => {
     const hourMinute = `${date?.getHours()}:${date?.getMinutes()}`
-    console.log(hourMinute);
     setTime(hourMinute);
   }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <PageHeader title='Proffys disponíveis' headerRight={emoteHappy}>
+      <Text>{JSON.stringify(favorites)}</Text>
+      <PageHeader title='Proffys disponíveis' headerRight={emoteHappy} titleStyle={styles.headerTitle}>
         {filterButton}
         {
           isFiltersVisible && (
@@ -123,6 +136,7 @@ function TeacherList() {
                   <Text style={styles.label}>Dia da semana</Text>
                   <RNPickerSelect
                     useNativeAndroidPickerStyle={false}
+                    doneText='Salvar'
                     placeholder={{ label: 'Selecione', value: 'Selecione' }}
                     style={pickerSelectStyles}
                     onValueChange={(value) => setWeekDay(value)}
@@ -141,10 +155,21 @@ function TeacherList() {
                 <View style={styles.inputBlock}>
                   <Text style={styles.label}>Horário</Text>
                   <TimePickerSelect
-                    placeholderText='Selecione' 
-                    placeholderTextColor='#c1bccc' 
-                    onChangeDate={handleHourMinute}
-                    IconRight={<Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}/>
+                  selectStyle={{
+                    height: 54,
+                    borderRadius: 8,
+                    borderColor: '#e6e6f0',
+                    borderWidth: 1,
+                    backgroundColor: '#fff',
+                    justifyContent: 'center',
+                    paddingHorizontal: 16,
+                    marginTop: 4,
+                    marginBottom: 16,
+                  }}
+                  placeholderText='Selecione' 
+                  placeholderTextColor='#c1bccc' 
+                  onChangeDate={handleHourMinute}
+                  IconRight={<Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}/>
                 </View>
               </View>
               <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
@@ -162,7 +187,7 @@ function TeacherList() {
       }}>
         {
           teachers.map((teacher: Teacher) => {
-            return <TeacherItem key={teacher.id} teacher={teacher} favorited={favorites.includes(teacher.id)} />
+            return <TeacherItem key={teacher.id} teacher={teacher} schedule={teacher.schedule} favorited={favorites.includes(teacher.id)} />
           })
         }
       </ScrollView>

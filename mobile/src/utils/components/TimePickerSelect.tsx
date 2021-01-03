@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Modal, Platform, StyleSheet, Text, View } from 'react-native';
+import { Modal, Platform, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -51,7 +51,7 @@ const DateTimePickerIOS = ({ defaultValue, isVisible, onPressOk, closeModal }: D
       }}>
         <View style={{
           margin: 20,
-          backgroundColor: '#e5e5e5',
+          backgroundColor: '#fafafc',
           borderRadius: 8,
           shadowColor: "#000",
           shadowOffset: {
@@ -126,9 +126,10 @@ interface DateTimePickerSelectProps {
   defaultValue?: Date
   IconRight?: ReactNode
   onChangeDate(date: Date): void
+  selectStyle?: StyleProp<ViewStyle>
 }
 
-const TimePickerSelect = ({ placeholderText, placeholderTextColor, IconRight, defaultValue, onChangeDate }: DateTimePickerSelectProps) => {
+const TimePickerSelect = ({ placeholderText, placeholderTextColor, IconRight, defaultValue, onChangeDate, selectStyle }: DateTimePickerSelectProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [time, setTime] = useState<Date>(defaultValue || new Date());
   
@@ -138,7 +139,7 @@ const TimePickerSelect = ({ placeholderText, placeholderTextColor, IconRight, de
         setTime(date)
         onChangeDate(date)
       }} closeModal={() => setModalVisible(false)} />
-      <TouchableOpacity style={styles.input} onPress={() => setModalVisible(true)}>
+      <TouchableOpacity style={selectStyle} onPress={() => setModalVisible(true)}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={{ color: placeholderTextColor }}>
             {
@@ -156,7 +157,6 @@ const TimePickerSelect = ({ placeholderText, placeholderTextColor, IconRight, de
 const styles = StyleSheet.create({
   input: {
     height: 54,
-    backgroundColor: '#fff',
     borderRadius: 8,
     justifyContent: 'center',
     paddingHorizontal: 16,

@@ -3,7 +3,7 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": null,
+  "urlRandomness": "kj-96p",
   "https": false,
   "scheme": null,
   "devClient": false

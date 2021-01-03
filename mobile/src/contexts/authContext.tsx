@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as SplashScreen from 'expo-splash-screen';
 
 import * as auth from '../services/auth';
 import delay from '../utils/delay';
@@ -11,18 +12,20 @@ interface User {
 }
 
 interface AuthContextData {
-  signed: boolean
+  signed: boolean | null
   user: User | null
   signIn(): Promise<void>
   signOut(): void
   loading: boolean
+  loadingApp: boolean
 }
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const AuthContext = createContext<AuthContextData>({ } as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadingApp, setLoadingApp] = useState(true);
 
   useEffect(() => {
     async function loadStorageData() {
@@ -34,6 +37,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
         setUser(JSON.parse(storagedUser));
       }
+      setLoadingApp(false);
       setLoading(false);
     }
 
@@ -63,7 +67,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, signIn, signOut, user, loading }}>
+    <AuthContext.Provider value={{ signed: !!user, signIn, signOut, user, loading, loadingApp }}>
       {children}
     </AuthContext.Provider>
   )

@@ -2,10 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#8257E5',
-    justifyContent: 'center',
-    padding: 40
+    flexGrow: 1,
+    backgroundColor: '#f0f0f7',
   },
   content: {
     flex: 1,
@@ -38,6 +36,24 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 16,
     fontFamily: 'Archivo_700Bold'
+  },
+  headerTitle: {
+    fontFamily: 'Archivo_700Bold',
+    color: '#FFF',
+    fontSize: 24,
+    lineHeight: 32,
+    maxWidth: 260,
+    marginVertical: 40,
+  },
+  headerSubtitle: {
+    fontFamily: 'Poppins_400Regular',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 14,
+    lineHeight: 24,
+    maxWidth: 260,
+
+    color: '#d4c2ff'
   }
 });
 

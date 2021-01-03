@@ -21,12 +21,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee'
   },
   profileInfo: {
-    marginLeft: 16
+    marginLeft: 16,
   },
   name: {
     fontFamily: 'Archivo_700Bold',
     color: '#32264d',
-    fontSize: 20
+    fontSize: 20,
+
+    maxWidth: '90%'
   },
   subject: {
     fontFamily: 'Poppins_400Regular',
@@ -41,11 +43,36 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#6a6180'
   },
+  schedulesContainer: {
+    marginVertical: 25,
+    
+    borderTopColor: '#e6e6f0',
+    borderBottomColor: '#e6e6f0',
+
+    borderTopWidth: 1,
+    borderBottomWidth: 1
+  },
+  schedulesList: {
+    marginTop: 24,
+    marginHorizontal: 24,
+
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  schedulesHeader: {
+    fontFamily: 'Poppins_400Regular',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 10,
+    lineHeight: 15,
+
+    color: '#9c98a6',
+    marginHorizontal: 25,
+  },
   footer: {
     backgroundColor: '#fafafc',
     padding: 24,
     alignItems: 'center',
-    marginTop: 24
   },
   price: {
     fontFamily: 'Poppins_400Regular',

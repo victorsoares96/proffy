@@ -48,11 +48,10 @@ const LandingOptions: StackNavigationOptions = {
   }
 }
 
-const StudyOptions: StackNavigationOptions = {
+const CustomHeader: StackNavigationOptions = {
   headerShown: true,
   headerTransparent: false,
   
-  headerTitle: 'Estudar',
   headerTitleStyle: {
     color: '#d4c2ff',
     fontFamily: 'Archivo_400Regular',
@@ -93,8 +92,14 @@ function AppStack() {
   return (
     <Navigator>
       <Screen name='Landing' component={Landing} options={LandingOptions}/>
-      <Screen name='GiveClasses' component={GiveClasses}/>
-      <Screen name='Study' component={StudyTabs} options={StudyOptions} />
+      <Screen name='GiveClasses' component={GiveClasses} options={{
+        headerTitle: 'Dar aulas',
+        ...CustomHeader
+      }}/>
+      <Screen name='Study' component={StudyTabs} options={{
+        headerTitle: 'Estudar',
+        ...CustomHeader
+      }} />
     </Navigator>
   );
 }
