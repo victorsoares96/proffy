@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Image, Text, View, SafeAreaView, StyleSheet } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
 
-import Button from '../../../utils/components/Button';
+import Button from '../../../components/Button';
 
 import registerFinish from '../../../assets/images/register-finish.png';
 

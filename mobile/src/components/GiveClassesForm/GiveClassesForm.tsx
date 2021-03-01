@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import Button from '../../utils/components/Button';
+import Button from '../Button';
 
 import importantAdvise from '../../assets/images/important.png';
-import TextField from '../../utils/components/TextField';
-import TextFieldMasked from '../../utils/components/TextFieldMasked';
-import Select from '../../utils/components/Select';
+import TextField from '../TextField';
+import TextFieldMasked from '../TextFieldMasked';
+import Select from '../Select';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import TimePickerSelect from '../../utils/components/TimePickerSelect';
+import TimePickerSelect from '../TimePickerSelect';
 import filterExpandIcon from '../../assets/images/icons/filter-expand-icon.png';
 
 interface GiveClassesFormProps {
@@ -67,8 +67,7 @@ const ScheduleItem: React.FC = () => {
                   }}
                   placeholderText='Selecione' 
                   placeholderTextColor='#c1bccc' 
-                  onChangeDate={date => console.log(date)}
-                  IconRight={<Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}/>
+                  onChangeDate={date => console.log(date)} />
               </View>
 
               <View style={{ width: '45%' }}>
@@ -87,8 +86,7 @@ const ScheduleItem: React.FC = () => {
                   }}
                   placeholderText='Selecione' 
                   placeholderTextColor='#c1bccc' 
-                  onChangeDate={date => console.log(date)}
-                  IconRight={<Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}/>
+                  onChangeDate={date => console.log(date)} />
               </View>
             </View>
             
@@ -210,7 +208,7 @@ const GiveClassesForm: React.FC<GiveClassesFormProps> = () => {
             </View>
             <View style={{ borderColor: '#e6e6f0', borderWidth: 1, marginTop: 10, marginBottom: 20 }} />
 
-            {schedule.map(item => <ScheduleItem />)}
+            {schedule.map((item, index) => <ScheduleItem key={index} />)}
           </View>
         </View>
 

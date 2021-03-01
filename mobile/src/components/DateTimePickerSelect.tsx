@@ -1,7 +1,8 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Modal, Platform, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Modal, OpaqueColorValue, Platform, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AntDesign } from '@expo/vector-icons';
 
 interface DateTimePickerModalActions {
   onPressOk(date: Date): void
@@ -15,21 +16,21 @@ interface DateTimePickerModalProps extends DateTimePickerModalActions {
   isVisible: boolean
 }
 
-const DateTimePickerAndroid = ({ defaultValue, isVisible, onPressOk, closeModal }: DateTimePickerModalProps) => {
+const DateTimePickerAndroid: React.FC<DateTimePickerModalProps> = ({ defaultValue, isVisible, onPressOk, closeModal }) => {
   const [date, setDate] = useState<Date>(defaultValue);
 
   useEffect(() => {
     onPressOk(date);
   }, [date]);
+
   return (
     isVisible ? (
       <DateTimePicker
       style={{ padding: 20 }}
       testID="dateTimePicker"
       value={date}
-      mode='time'
-      is24Hour={true}
-      display='spinner'
+      mode='datetime'
+      display='default'
       onChange={(e, selectedDate) => {
         setDate(selectedDate || date);
         closeModal();
@@ -40,7 +41,7 @@ const DateTimePickerAndroid = ({ defaultValue, isVisible, onPressOk, closeModal 
   )
 };
 
-const DateTimePickerIOS = ({ defaultValue, isVisible, onPressOk, closeModal }: DateTimePickerModalProps) => {
+const DateTimePickerIOS: React.FC<DateTimePickerModalProps> = ({ defaultValue, isVisible, onPressOk, closeModal }) => {
   const [date, setDate] = useState<Date>(defaultValue);
   return (
     <Modal animationType="fade" transparent={true} visible={isVisible} onRequestClose={closeModal}>
@@ -51,7 +52,7 @@ const DateTimePickerIOS = ({ defaultValue, isVisible, onPressOk, closeModal }: D
       }}>
         <View style={{
           margin: 20,
-          backgroundColor: '#fafafc',
+          backgroundColor: '#e5e5e5',
           borderRadius: 8,
           shadowColor: "#000",
           shadowOffset: {
@@ -67,9 +68,8 @@ const DateTimePickerIOS = ({ defaultValue, isVisible, onPressOk, closeModal }: D
             style={{ padding: 20 }}
             testID="dateTimePicker"
             value={date}
-            mode='time'
-            is24Hour={true}
-            display='spinner'
+            mode='datetime'
+            display='default'
             onChange={(e, selectedDate) => {
               setDate(selectedDate || date);
             }}
@@ -101,7 +101,7 @@ const DateTimePickerIOS = ({ defaultValue, isVisible, onPressOk, closeModal }: D
   )
 }
 
-const DateTimePickerModal = ({ defaultValue, isVisible, openModal, closeModal, onPressOk }: DateTimePickerModalProps) => {
+const DateTimePickerModal: React.FC<DateTimePickerModalProps> = ({ defaultValue, isVisible, openModal, closeModal, onPressOk }) => {
   if(Platform.OS === 'android') return (
     <DateTimePickerAndroid 
     isVisible={isVisible}
@@ -124,12 +124,13 @@ interface DateTimePickerSelectProps {
   placeholderText?: String
   placeholderTextColor?: string
   defaultValue?: Date
-  IconRight?: ReactNode
   onChangeDate(date: Date): void
   selectStyle?: StyleProp<ViewStyle>
+  iconSize?: number | undefined
+  iconColor?: string | typeof OpaqueColorValue | undefined
 }
 
-const TimePickerSelect = ({ placeholderText, placeholderTextColor, IconRight, defaultValue, onChangeDate, selectStyle }: DateTimePickerSelectProps) => {
+const DateTimePickerSelect: React.FC<DateTimePickerSelectProps> = ({ placeholderText, placeholderTextColor, defaultValue, selectStyle, iconColor, iconSize, onChangeDate }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [time, setTime] = useState<Date>(defaultValue || new Date());
   
@@ -144,25 +145,15 @@ const TimePickerSelect = ({ placeholderText, placeholderTextColor, IconRight, de
           <Text style={{ color: placeholderTextColor }}>
             {
               placeholderText && !defaultValue && !time ? placeholderText
-              : placeholderText && !defaultValue && time ? `${time?.getHours()}:${time?.getMinutes()}`
-              : `${defaultValue?.getHours()}:${defaultValue?.getMinutes()}`}
+              : placeholderText && !defaultValue && time ? `${time?.toLocaleDateString()} ${time?.toLocaleTimeString('pt-BR')}`
+              : `${defaultValue?.toLocaleDateString()} ${defaultValue?.toLocaleTimeString()}`
+            }
           </Text>
-          {IconRight}
+          <AntDesign name="down" size={iconSize ? iconSize : 12} color={iconColor} style={{ transform: [{ rotate: modalVisible ? '180deg' : '0deg' }] }} />
         </View>
       </TouchableOpacity>
     </>
   )
 }
 
-const styles = StyleSheet.create({
-  input: {
-    height: 54,
-    borderRadius: 8,
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    marginTop: 4,
-    marginBottom: 16,
-  }
-});
-
-export default TimePickerSelect;
+export default DateTimePickerSelect;

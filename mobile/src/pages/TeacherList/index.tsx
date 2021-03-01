@@ -13,8 +13,10 @@ import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
 
 import api from '../../services/api';
-import TimePickerSelect from '../../utils/components/TimePickerSelect';
+import TimePickerSelect from '../../components/TimePickerSelect';
 import { useFocusEffect } from '@react-navigation/native';
+import Select from '../../components/Select';
+import Button from '../../components/Button';
 
 function TeacherList() {
   const [teachers, setTeachers] = useState([]);
@@ -112,45 +114,43 @@ function TeacherList() {
   }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text>{JSON.stringify(favorites)}</Text>
       <PageHeader title='Proffys disponíveis' headerRight={emoteHappy} titleStyle={styles.headerTitle}>
         {filterButton}
         {
           isFiltersVisible && (
             <View style={styles.searchForm}>
               <Text style={styles.label}>Matéria</Text>
-              <RNPickerSelect
-                useNativeAndroidPickerStyle={false}
-                placeholder={{ label: 'Selecione', value: 'Selecione' }}
-                style={pickerSelectStyles}
-                onValueChange={(value) => setSubject(value)}
-                items={[
-                  { label: 'Matemática', value: 'Matemática', inputLabel: 'Matemática' },
-                  { label: 'Física', value: 'fisica', inputLabel: 'Física' },
-                  { label: 'Quimíca', value: 'quimica', inputLabel: 'Quimíca' },
-                ]}
-                Icon={() => <Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}
-              />
+              <Select
+              doneText='Salvar'
+              textStyle={styles.select}
+              iconColor='#8257e5'
+              placeholder={{ label: 'Todas', value: '' }}
+              onValueChange={(value) => setSubject(value)}
+              value={subject}
+              items={[
+                { label: 'Matemática', value: 'Matemática', inputLabel: 'Matemática' },
+                { label: 'Física', value: 'Física', inputLabel: 'Física' },
+                { label: 'Quimíca', value: 'Quimíca', inputLabel: 'Quimíca' },
+              ]} />
               <View style={styles.inputGroup}>
                 <View style={styles.inputBlock}>
                   <Text style={styles.label}>Dia da semana</Text>
-                  <RNPickerSelect
-                    useNativeAndroidPickerStyle={false}
-                    doneText='Salvar'
-                    placeholder={{ label: 'Selecione', value: 'Selecione' }}
-                    style={pickerSelectStyles}
-                    onValueChange={(value) => setWeekDay(value)}
-                    items={[
-                      { label: 'Segunda', value: 1, inputLabel: 'Segunda' },
-                      { label: 'Terça', value: 2, inputLabel: 'Terça' },
-                      { label: 'Quarta', value: 3, inputLabel: 'Quarta' },
-                      { label: 'Quinta', value: 4, inputLabel: 'Quinta' },
-                      { label: 'Sexta', value: 5, inputLabel: 'Sexta' },
-                      { label: 'Sábado', value: 6, inputLabel: 'Sábado' },
-                      { label: 'Domingo', value: 7, inputLabel: 'Domingo' },
-                    ]}
-                    Icon={() => <Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}
-                  />
+                  <Select
+                  doneText='Salvar'
+                  textStyle={styles.select}
+                  iconColor='#8257e5'
+                  placeholder={{ label: 'Todos', value: '' }}
+                  onValueChange={(value) => setWeekDay(value)}
+                  value={week_day}
+                  items={[
+                    { label: 'Segunda', value: 1, inputLabel: 'Segunda' },
+                    { label: 'Terça', value: 2, inputLabel: 'Terça' },
+                    { label: 'Quarta', value: 3, inputLabel: 'Quarta' },
+                    { label: 'Quinta', value: 4, inputLabel: 'Quinta' },
+                    { label: 'Sexta', value: 5, inputLabel: 'Sexta' },
+                    { label: 'Sábado', value: 6, inputLabel: 'Sábado' },
+                    { label: 'Domingo', value: 7, inputLabel: 'Domingo' },
+                  ]} />
                 </View>
                 <View style={styles.inputBlock}>
                   <Text style={styles.label}>Horário</Text>
@@ -166,17 +166,17 @@ function TeacherList() {
                     marginTop: 4,
                     marginBottom: 16,
                   }}
+                  iconColor='#8257e5'
                   placeholderText='Selecione' 
                   placeholderTextColor='#c1bccc' 
-                  onChangeDate={handleHourMinute}
-                  IconRight={<Image style={{ marginLeft: 'auto', transform: [{ rotate: '180deg' }] }} source={filterExpandIcon} />}/>
+                  onChangeDate={handleHourMinute} />
                 </View>
               </View>
-              <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
+              <Button color='secondary' loading={false} rippleColor='#ffffff' marginTop={20} activityIndicatorColor='#ffffff' onPress={handleFiltersSubmit}>
                 <Text style={styles.submitButtonText}>
                   Filtrar
                 </Text>
-              </RectButton>
+              </Button>
             </View>
           )
         }

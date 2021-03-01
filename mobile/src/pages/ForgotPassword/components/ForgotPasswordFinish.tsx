@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, Text, StyleSheet, ScrollView, Image, View } from "react-native";
-import Button from '../../../utils/components/Button';
+import Button from '../../../components/Button';
 
 import forgotPasswordFinish from '../../../assets/images/forgot-password-finish.png';
 import { useNavigation } from '@react-navigation/native';

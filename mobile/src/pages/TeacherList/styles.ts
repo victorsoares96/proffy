@@ -16,6 +16,20 @@ const styles = StyleSheet.create({
     color: '#d4c2ff',
     fontFamily: 'Poppins_400Regular'
   },
+  select: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+
+    borderRadius: 8,
+    color: '#c1bccc',
+    backgroundColor: '#fff',
+    height: 54,
+    paddingHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 16,
+  },
   inputGroup: {
     flexDirection: 'row',
     justifyContent: 'space-between'

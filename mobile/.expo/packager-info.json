@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
+  "expoServerPort": null,
   "packagerPort": 19000,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://kj-96p.jvjv33.mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.kj-96p.jvjv33.mobile.exp.direct",
-  "ngrokPid": 94249
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }

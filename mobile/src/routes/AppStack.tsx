@@ -11,18 +11,28 @@ import backIcon from '../assets/images/icons/back.png';
 import logoImg from '../assets/images/logo.png';
 
 import logout from '../assets/images/icons/logout.png';
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import avatarIcon from '../assets/images/icons/avatar.png';
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts/authContext';
+import Profile from '../pages/Profile';
 
 const { Navigator, Screen } = createStackNavigator();
 
 const LandingOptions: StackNavigationOptions = { 
-  headerLeft: () =>  (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <Image style={{ width: 40, height: 40, borderRadius: 20 }} source={{ uri: 'https://avatars0.githubusercontent.com/u/19741953?s=460&u=b55781c981002566c88dfa21a984fadccc4d274c&v=4' }} />
-      <Text style={{ marginLeft: 15, fontFamily: 'Poppins_400Regular', color: '#d4c2ff', fontStyle: 'normal', fontWeight: '500', fontSize: 12, lineHeight: 22 }}>Victor Soares</Text>
-    </View>
-  ), headerLeftContainerStyle: {
+  headerLeft: () => {
+    const { user } = useAuth();
+    const { navigate } = useNavigation();
+    return (
+      <TouchableOpacity onPress={() => navigate('Profile')}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image style={{ width: 40, height: 40, borderRadius: 20 }} source={user?.avatar ? { uri: user?.avatar } : avatarIcon} />
+          <Text style={{ marginLeft: 15, fontFamily: 'Poppins_400Regular', color: '#d4c2ff', fontStyle: 'normal', fontWeight: '500', fontSize: 12, lineHeight: 22 }}>
+            {user?.name}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }, headerLeftContainerStyle: {
     marginLeft: 30
   },
   headerStyle: {
@@ -92,6 +102,10 @@ function AppStack() {
   return (
     <Navigator>
       <Screen name='Landing' component={Landing} options={LandingOptions}/>
+      <Screen name='Profile' component={Profile} options={{
+        headerTitle: 'Perfil',
+        ...CustomHeader
+      }}/>
       <Screen name='GiveClasses' component={GiveClasses} options={{
         headerTitle: 'Dar aulas',
         ...CustomHeader

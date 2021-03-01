@@ -6,66 +6,63 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import backImg from '../../../assets/images/icons/back-secondary.png';
 import proffyBackground from '../../../assets/images/login-background.png';
 
-import Button from '../../../utils/components/Button';
+import Button from '../../../components/Button';
 
 function ForgotPasswordStepOne() {
 
   const { navigate, goBack } = useNavigation();
   return (
-    <ScrollView contentContainerStyle={styles.root}>
+    <KeyboardAvoidingView style={styles.root} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled>
       
-      <View style={styles.imgContainer}>
-        <Image source={proffyBackground} />
-      </View>
-
-      <KeyboardAvoidingView style={styles.forgotFormContainer} behavior='padding'>
-        
-        <View>
-          <TouchableOpacity style={styles.backButton} onPress={goBack}>
-            <Image source={backImg} />
-          </TouchableOpacity>
-        </View>
-        
-        <View style={styles.forgotTitleContainer}>
-          <Text style={styles.forgotTitle}>
-            Esqueceu sua senha?
-          </Text>
-          <Text style={styles.forgotDescription}>
-            Não esquenta, {'\n'}vamos dar um jeito nisso.
-          </Text>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.imgContainer}>
+          <Image source={proffyBackground} />
         </View>
 
-        <View style={styles.forgotFormFields}>
-          <TextInput
-          keyboardType='email-address'
-          placeholder='E-mail' 
-          placeholderTextColor='#9c98a6' 
-          style={[styles.forgotFormTextInput, { borderRadius: 8 }]} 
-          onChangeText={(text) => console.log(text)} />
-          
-          <Button color='secondary' rippleColor='#ffffff' marginTop={20} onPress={() => navigate('ForgotPasswordFinish')}>
-            <Text style={styles.buttonText}>Enviar</Text>
-          </Button>
-        </View>
+        <View style={styles.forgotFormContainer}>
+          <View style={styles.forgotTitleContainer}>
+            <TouchableOpacity style={styles.backButton} onPress={goBack}>
+              <Image source={backImg} />
+            </TouchableOpacity>
+            <Text style={styles.forgotTitle}>
+              Esqueceu sua senha?
+            </Text>
+            <Text style={styles.forgotDescription}>
+              Não esquenta, {'\n'}vamos dar um jeito nisso.
+            </Text>
+          </View>
 
-      </KeyboardAvoidingView>
-    </ScrollView>
+          <View style={styles.forgotFormFields}>
+            <TextInput
+            keyboardType='email-address'
+            placeholder='E-mail' 
+            placeholderTextColor='#9c98a6' 
+            style={[styles.forgotFormTextInput, { borderRadius: 8 }]} 
+            onChangeText={(text) => console.log(text)} />
+            
+            <Button color='secondary' rippleColor='#ffffff' marginTop={20} onPress={() => navigate('ForgotPasswordFinish')}>
+              <Text style={styles.buttonText}>Enviar</Text>
+            </Button>
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
 
 const styles = StyleSheet.create({
   root: {
     flexGrow: 1,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: '#f0f0f7',
   },
   imgContainer: {
-    flexGrow: 1,
     backgroundColor: '#8257e5',
-    justifyContent: 'center',
+    padding: 50,
+    //justifyContent: 'center',
     alignItems: 'center',
   },
   forgotFormContainer: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'space-evenly',
     margin: 20
   },
