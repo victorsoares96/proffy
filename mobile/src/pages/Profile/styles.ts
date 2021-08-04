@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8257e5', 
     paddingTop: 40,
     paddingHorizontal: 40,
-    paddingBottom: 70, 
+    paddingBottom: 50, 
     alignItems: 'center' 
   },
   avatar: { 

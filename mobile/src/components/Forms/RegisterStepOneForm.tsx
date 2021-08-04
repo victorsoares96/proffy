@@ -34,7 +34,6 @@ const InnerForm = (props: FormikProps<FormValues>) => {
       </Text>
 
       <TextField 
-      keyboardType='email-address' 
       placeholder='Nome' 
       placeholderTextColor='#9c98a6'
       value={values.name}
